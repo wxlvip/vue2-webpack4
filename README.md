@@ -1,5 +1,7 @@
 ## Vue2.x + Webpack4
 
+技术栈 Vue2.x + Webpack4 + Babel7 + vue-router3 + vuex3 + ESlint
+
 ### 设置镜像
 ```shell
 npm install -g cnpm --registry=https://registry.npm.taobao.org
@@ -22,7 +24,7 @@ npm install -g cnpm --registry=https://registry.npm.taobao.org
 "webpack-dev-server": "^4.6.0"
 ```
 
-
+## 已配置ESlint
 
 
 ## 素材

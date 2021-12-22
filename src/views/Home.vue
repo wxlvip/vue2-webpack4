@@ -1,5 +1,7 @@
 <template>
   <div id="home">
+    <img alt="Vue logo" src="../assets/logo.png" />
+    <HelloWorld msg="Welcome to Vue.js App"/>
     <h1>Home</h1>
     <div>
       <p>{{getCounter}}</p>
@@ -10,6 +12,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import HelloWorld from '../components/HelloWorld.vue';
 
 export default {
   name: 'Home',
@@ -17,6 +20,7 @@ export default {
     return {};
   },
   components: {
+    HelloWorld
   },
   computed: {
     ...mapGetters(['getCounter'])

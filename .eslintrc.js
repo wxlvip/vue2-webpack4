@@ -16,9 +16,10 @@ module.exports = {
     'vue'
   ],
   rules: {
-    'vue/multi-word-component-names': ['error', {
-      ignores: ['Home','About']
-    }],
+    'vue/multi-word-component-names': 'off',
+    // 'vue/multi-word-component-names': ['error', {
+    //   ignores: ['Home','About']
+    // }],
     // 'accessor-pairs': 'error',
     // 'array-bracket-spacing': [
     //     'error',
