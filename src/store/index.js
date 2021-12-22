@@ -1,31 +1,30 @@
 // store/index.js
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 // vuex持久化插件
-import createPersistedState from "vuex-persistedstate";
-Vue.use(Vuex)
+import createPersistedState from 'vuex-persistedstate';
+
+Vue.use(Vuex);
 
 const state = {
   counter: 0
-}
+};
 
 const actions = {
-  add: ({commit}) => {
-    return commit('add')
-  }
-}
+  add: ({ commit }) => commit('add')
+};
 
 const mutations = {
   add: (state) => {
-    state.counter++
+    state.counter++;
   }
-}
+};
 
 const getters = {
-  getCounter (state) {
-    return state.counter
+  getCounter(state) {
+    return state.counter;
   }
-}
+};
 
 export default new Vuex.Store({
   state,
@@ -37,11 +36,11 @@ export default new Vuex.Store({
       // 存储方式：localStorage、sessionStorage、cookies
       storage: window.sessionStorage,
       // 存储的 key 的key值
-      key: "store",
+      key: 'store',
       render(state) {
         // 要存储的数据：本项目采用es6扩展运算符的方式存储了state中所有的数据
         return { ...state };
       }
     })
   ]
-})
+});

@@ -10,6 +10,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+
 export default {
   name: 'Home',
   data() {
@@ -23,5 +24,5 @@ export default {
   methods: {
     ...mapActions(['add'])
   }
-}
+};
 </script>
