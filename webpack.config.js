@@ -6,6 +6,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // 性能分析
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
+function resolve(dir) {
+  return path.join(__dirname, '..', dir);
+}
+
 module.exports = {
   // 配置主入口文件
   entry: path.resolve(__dirname, './src/main.js'),
@@ -32,7 +36,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'], // import引用文件省略后缀 runtime
     alias: {
-      vue$: 'vue/dist/vue.esm.js'
+      '@': resolve('src'),
+      vue$: 'vue/dist/vue.esm.js',
+      assets: resolve('src/assets')
     }
   },
   module: {
@@ -67,7 +73,7 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           'css-loader', 'less-loader', 'postcss-loader']
       },{
-        test: /\.(gif|png|svg|jpe?g)(\?.*)?$/,
+        test: /\.(png|svg|jpe?g|gif)(\?.*)?$/,
         loader: 'url-loader', // 建议使用url-loader，不用file-loader，减少http请求次数
         options: {
           limit: 4096,

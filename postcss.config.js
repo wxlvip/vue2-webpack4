@@ -3,6 +3,8 @@ module.exports = {
     autoprefixer: {
       // browsers: 'last 1 version'
     }
+    // "postcss-import": {},
+    // "postcss-url": {},
     // 'postcss-pxtorem': {
     //   replace: false,
     //   rootValue: 100, // 根元素字体大小
