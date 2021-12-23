@@ -15,16 +15,19 @@ module.exports = {
     // 生成的 js 文件名称
     filename: 'js/[name].[hash:8].js',
     // 生成的 chunk 名称
-    chunkFilename: 'js/[name].[hash:8].js'
+    chunkFilename: 'js/[name].[hash:8].js',
     // 资源引用的路径
-    // publicPath: "./"
+    publicPath: '/' // 必须加publicPath
   },
   mode: 'development',
   devServer: {
-    // allowedHosts?, bonjour?, client?, compress?, devMiddleware?, headers?, historyApiFallback?, host?, hot?, http2?, https?, ipc?, liveReload?, magicHtml?, onAfterSetupMiddleware?, onBeforeSetupMiddleware?, onListening?, open?, port?, proxy?, server?, setupExitSignals?, static?, watchFiles?, webSocketServer?
+    // allowedHosts?, bonjour?, client?, compress?, devMiddleware?, headers?, historyApiFallback?,
+    // host?, hot?,http2?, https?, ipc?, liveReload?, magicHtml?, onAfterSetupMiddleware?, onBeforeSetupMiddleware?,
+    // onListening?, open?, port?, proxy?, server?, setupExitSignals?, static?, watchFiles?, webSocketServer?
+    host: 'localhost', // 主机地址，默认是localhost
+    port: 3000,
     open: true,
-    hot: true,
-    port: 3000
+    hot: false // 设置为 true 更改页面样式不会自动刷新页面
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'], // import引用文件省略后缀 runtime
@@ -67,7 +70,8 @@ module.exports = {
         test: /\.(gif|png|svg|jpe?g)(\?.*)?$/,
         loader: 'url-loader', // 建议使用url-loader，不用file-loader，减少http请求次数
         options: {
-          limit: 8 * 1024,
+          limit: 4096,
+          esModule: false,
           fallback: {
             loader: 'file-loader',
             options: {
