@@ -1,6 +1,4 @@
 const About = () => import('../views/About.vue');
-const Login = () => import('../components/Login.vue');
-const Layout = () => import('../views/Layout.vue');
 const Bar = { template: '<div>bar</div>' };
 
 export default [
@@ -45,13 +43,6 @@ export default [
     meta: {
       title: '登录'
     },
-    component: Login
-  },
-  {
-    path: '/layout',
-    meta: {
-      title: '首页'
-    },
-    component: Layout
+    component: () => import(/* webpackChunkName: "Home" */ '../components/login.vue')
   }
 ];
