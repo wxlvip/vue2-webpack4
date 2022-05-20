@@ -9,6 +9,7 @@
     "dev": "webpack-dev-server --open --port 3000 --hot",
     "serve": "webpack-dev-server --config ./build/webpack.dev.js",
     "analyz": "NODE_ENV=production npm_config_report=true npm run build:dev",
+    "build": "npm run build:dev",
     "build:dev": "npm run clean && webpack ./src/main.js --mode development",
     "build:pro": "webpack --config ./build/webpack.prod.js",
     "clean": "rimraf dist",
