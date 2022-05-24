@@ -4,6 +4,10 @@ module.exports = {
     es2021: true,
     node: true
   },
+  'import/no-extraneous-dependencies':[
+      'Error',
+    {'devDependencies':true}
+  ],
   extends: [
     'plugin:vue/essential',
     'airbnb-base'

@@ -12,18 +12,18 @@ function resolve(dir) {
 
 module.exports = {
   // 配置主入口文件
-  entry: path.resolve(__dirname, './src/main.js'),
-  output: {
-    // 配置打包文件输出的目录
-    path: path.resolve(__dirname, 'dist'),
-    // 生成的 js 文件名称
-    filename: 'js/[name].[hash:8].js',
-    // 生成的 chunk 名称
-    chunkFilename: 'js/[name].[hash:8].js',
-    // 资源引用的路径
-    publicPath: '/' // 必须加publicPath
-  },
-  mode: 'development',
+  entry: path.resolve(__dirname, '../src/main.js'),
+  // output: {
+  //   // 配置打包文件输出的目录
+  //   path: path.resolve(__dirname, '../dist'),
+  //   // 生成的 js 文件名称
+  //   filename: 'js/[name].[hash:8].js',
+  //   // 生成的 chunk 名称
+  //   chunkFilename: 'js/[name].[hash:8].js',
+  //   // 资源引用的路径
+  //   publicPath: '/' // 必须加publicPath
+  // },
+  // mode: 'development',
   devServer: {
     // allowedHosts?, bonjour?, client?, compress?, devMiddleware?, headers?, historyApiFallback?,
     // host?, hot?,http2?, https?, ipc?, liveReload?, magicHtml?, onAfterSetupMiddleware?, onBeforeSetupMiddleware?,
@@ -31,7 +31,9 @@ module.exports = {
     host: 'localhost', // 主机地址，默认是localhost
     port: 3000,
     open: true,
-    hot: false // 设置为 true 更改页面样式不会自动刷新页面
+    hot: false, // 设置为 true 更改页面样式不会自动刷新页面
+    compress: true,
+    // clientLogLevel: 'none' // 不适配4.x版本 具体不详
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'], // import引用文件省略后缀 runtime
@@ -61,17 +63,6 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           // 'style-loader', // 与 MiniCssExtractPlugin 不共存
           'css-loader', 'postcss-loader']
-      },{
-        test: /\.(scss|sass)$/,
-        // 使用 'style-loader','css-loader'
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader', 'sass-loader', 'postcss-loader']
-      },{
-        test: /\.less$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader', 'less-loader', 'postcss-loader']
       },{
         test: /\.(png|svg|jpe?g|gif)(\?.*)?$/,
         loader: 'url-loader', // 建议使用url-loader，不用file-loader，减少http请求次数
@@ -124,13 +115,14 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './public/index.html'),
+      template: path.resolve(__dirname, '../public/index.html'),
       inject: 'body'
     }),
     new VueLoaderPlugin(), //  手动创建项目，需在webpack中使用vue-loader自带插件
     new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].[hash:8].css'
+      filename: 'css/[name].[hash:8].css',
+      chunkFilename: 'css/[name].[hash:8].css'
     })
     // new BundleAnalyzerPlugin(
     //     {
@@ -152,5 +144,10 @@ module.exports = {
     //         VUE_APP_BASE_URL: JSON.stringify('http://localhost:3000')
     //     }
     // })
-  ]
+  ],
+  stats: {
+    // 去掉mini-css-extract-plugin报的warning
+    children: false,
+    warningsFilter: (warning) => /Conflicting order between/gm.test(warning)
+  }
 };
