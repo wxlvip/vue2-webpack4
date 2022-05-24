@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const config = require('./config')
 const utils = require("./utils");
 // 性能分析
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -12,8 +13,16 @@ function resolve(dir) {
 }
 
 module.exports = {
+  // mode: 'development',
   // 配置主入口文件
   entry: path.resolve(__dirname, '../src/main.js'),
+  output: {
+    path: config.build.assetsRoot,
+    filename: '[name].[hash:8].js',
+    publicPath: process.env.NODE_ENV === 'production'
+        ? config.build.assetsPublicPath
+        : config.dev.assetsPublicPath
+  },
   // output: {
   //   // 配置打包文件输出的目录
   //   path: path.resolve(__dirname, '../dist'),
@@ -24,18 +33,6 @@ module.exports = {
   //   // 资源引用的路径
   //   publicPath: '/' // 必须加publicPath
   // },
-  // mode: 'development',
-  devServer: {
-    // allowedHosts?, bonjour?, client?, compress?, devMiddleware?, headers?, historyApiFallback?,
-    // host?, hot?,http2?, https?, ipc?, liveReload?, magicHtml?, onAfterSetupMiddleware?, onBeforeSetupMiddleware?,
-    // onListening?, open?, port?, proxy?, server?, setupExitSignals?, static?, watchFiles?, webSocketServer?
-    host: 'localhost', // 主机地址，默认是localhost
-    port: 3000,
-    open: true,
-    hot: false, // 设置为 true 更改页面样式不会自动刷新页面
-    compress: true,
-    // clientLogLevel: 'none' // 不适配4.x版本 具体不详
-  },
   resolve: {
     extensions: ['.js', '.vue', '.json'], // import引用文件省略后缀 runtime
     alias: {
@@ -44,6 +41,20 @@ module.exports = {
       assets: resolve('src/assets')
     }
   },
+  // devServer: {
+  //   // allowedHosts?, bonjour?, client?, compress?, devMiddleware?, headers?, historyApiFallback?,
+  //   // host?, hot?,http2?, https?, ipc?, liveReload?, magicHtml?, onAfterSetupMiddleware?, onBeforeSetupMiddleware?,
+  //   // onListening?, open?, port?, proxy?, server?, setupExitSignals?, static?, watchFiles?, webSocketServer?
+  //   host: 'localhost', // 主机地址，默认是localhost
+  //   port: 3000,
+  //   open: true,
+  //   // hot: false, // 设置为 true 更改页面样式不会自动刷新页面
+  //   compress: true,
+  //   // hot: true,
+  //   // inline: true
+  //   // clientLogLevel: 'none' // 不适配4.x版本 具体不详
+  // },
+
   module: {
     rules: [
       // 注意 cache-loader 读取和保存缓存文件是有性能开销的，所以只使用这个加载器来缓存主要的加载器。
@@ -65,10 +76,21 @@ module.exports = {
           // 'style-loader', // 与 MiniCssExtractPlugin 不共存
           'css-loader', 'postcss-loader']
       },{
+        test: /\.(scss|sass)$/,
+        // 使用 'style-loader','css-loader'
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader', 'sass-loader', 'postcss-loader']
+      },{
+        test: /\.less$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader', 'less-loader', 'postcss-loader']
+      },{
         test: /\.(png|svg|jpe?g|gif)(\?.*)?$/,
         loader: 'url-loader', // 建议使用url-loader，不用file-loader，减少http请求次数
         options: {
-          limit: 4096,
+          limit: 10000,
           esModule: false,
           fallback: {
             loader: 'file-loader',
@@ -84,7 +106,7 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 4096,
+              limit: 10000,
               fallback: {
                 loader: 'file-loader',
                 options: {
@@ -101,7 +123,7 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 4096,
+              limit: 10000,
               fallback: {
                 loader: 'file-loader',
                 options: {

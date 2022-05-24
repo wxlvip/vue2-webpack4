@@ -29,15 +29,16 @@ module.exports = merge(webpackConfig, {
   mode: 'production',
   devtool: '#source-map',
   output: {
-    // 资源引用的路径
-    publicPath: './', // 必须加publicPath
     // 配置打包文件输出的目录
     // path: path.resolve(__dirname, '../dist'),
     path: config.build.assetsRoot,
     // 生成的 js 文件名称
     filename: utils.assetsPath('js/[name].[hash:8].js'),
     // 生成的 chunk 名称
-    chunkFilename: utils.assetsPath('js/[name].[hash:8].js')
+    chunkFilename: utils.assetsPath('js/[name].[hash:8].js'),
+    // 资源引用的路径
+    // publicPath: './', // 必须加publicPath 生产环境为 './'
+    publicPath: config.build.assetsPublicPath // 必须加publicPath
   },
   // optimization: {
   //   splitChunks: {
@@ -60,18 +61,7 @@ module.exports = merge(webpackConfig, {
   // },
   module: {
     rules: [
-      {
-        test: /\.(scss|sass)$/,
-        // 使用 'style-loader','css-loader'
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader', 'sass-loader', 'postcss-loader']
-      },{
-        test: /\.less$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader', 'less-loader', 'postcss-loader']
-      }
+
     ]
   },
   plugins: [

@@ -2,7 +2,7 @@
   <div id="home">
     <img alt="Vue logo" src="../assets/img/logo.png" />
     <HelloWorld msg="Welcome to Vue.js App"/>
-    <h1>Home</h1>
+    <h1 class="h1">Home+</h1>
     <div>
       <p>{{getCounter}}</p>
       <button @click="add">add</button>
@@ -30,3 +30,13 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+#home{
+  .h1{
+    width: 200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+</style>
