@@ -14,6 +14,8 @@ copy-webpack-plugin 用户拷贝静态资源
 ...
 * */
 const path = require('path')
+const utils = require('./utils')
+const config = require('./config')
 const {merge} = require('webpack-merge')
 const webpack = require('webpack')
 const webpackConfig = require('./webpack.base.conf')
@@ -30,11 +32,12 @@ module.exports = merge(webpackConfig, {
     // 资源引用的路径
     publicPath: './', // 必须加publicPath
     // 配置打包文件输出的目录
-    path: path.resolve(__dirname, '../dist'),
+    // path: path.resolve(__dirname, '../dist'),
+    path: config.build.assetsRoot,
     // 生成的 js 文件名称
-    filename: 'js/[name].[hash:8].js',
+    filename: utils.assetsPath('js/[name].[hash:8].js'),
     // 生成的 chunk 名称
-    chunkFilename: 'js/[name].[hash:8].js'
+    chunkFilename: utils.assetsPath('js/[name].[hash:8].js')
   },
   // optimization: {
   //   splitChunks: {
@@ -78,8 +81,8 @@ module.exports = merge(webpackConfig, {
     //   }
     // }),
     // new MiniCssExtractPlugin({
-    //   filename: 'css/[name].[hash:8].css',
-    //   chunkFilename: 'css/[name].[hash:8].css'
+    //   filename: utils.assetsPath('css/[name].[hash:8].css'),
+    //   chunkFilename: utils.assetsPath('css/[name].[hash:8].css')
     // }),
     new OptimizeCssnanoPlugin({
       sourceMap: true,

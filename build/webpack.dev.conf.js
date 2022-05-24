@@ -1,18 +1,21 @@
+const utils = require('./utils')
 const {merge} = require('webpack-merge');
 const webpackConfig = require('./webpack.base.conf');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require("path");
+const config = require("./config");
 module.exports = merge(webpackConfig, {
   mode: 'development',
   devtool: 'cheap-module-eval-source-map',
   output: {
     // 配置打包文件输出的目录
-    path: path.resolve(__dirname, '../dist'),
+    // path: path.resolve(__dirname, '../dist'),
+    path: config.build.assetsRoot,
     // 生成的 js 文件名称
-    filename: 'js/[name].[hash:8].js',
+    filename: utils.assetsPath('js/[name].[hash:8].js'),
     // 生成的 chunk 名称
-    chunkFilename: 'js/[name].[hash:8].js',
+    chunkFilename: utils.assetsPath('js/[name].[hash:8].js'),
     // 资源引用的路径
     publicPath: '/' // 必须加publicPath
   },

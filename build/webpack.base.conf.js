@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const utils = require("./utils");
 // 性能分析
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -72,7 +73,7 @@ module.exports = {
           fallback: {
             loader: 'file-loader',
             options: {
-              name: 'img/[name].[hash:8].[ext]'
+              name: utils.assetsPath('img/[name].[hash:8].[ext]')
             }
           }
         }
@@ -87,7 +88,7 @@ module.exports = {
               fallback: {
                 loader: 'file-loader',
                 options: {
-                  name: 'media/[name].[hash:8].[ext]'
+                  name: utils.assetsPath('media/[name].[hash:8].[ext]')
                 }
               }
             }
@@ -104,7 +105,7 @@ module.exports = {
               fallback: {
                 loader: 'file-loader',
                 options: {
-                  name: 'fonts/[name].[hash:8].[ext]'
+                  name: utils.assetsPath('fonts/[name].[hash:8].[ext]')
                 }
               }
             }
@@ -121,8 +122,8 @@ module.exports = {
     new VueLoaderPlugin(), //  手动创建项目，需在webpack中使用vue-loader自带插件
     new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].[hash:8].css',
-      chunkFilename: 'css/[name].[hash:8].css'
+      filename: utils.assetsPath('css/[name].[hash:8].css'),
+      chunkFilename: utils.assetsPath('css/[name].[hash:8].css')
     })
     // new BundleAnalyzerPlugin(
     //     {
